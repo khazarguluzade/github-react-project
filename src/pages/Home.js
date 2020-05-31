@@ -41,7 +41,7 @@ flex-direction: column;
 
 const SearchContainer = styled.div`
 display: flex;
-border: 5px solid black;
+border: 1px solid black;
 margin-bottom: 10px;
 flex-direction: column;
 justify-content: center;
