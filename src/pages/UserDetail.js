@@ -1,20 +1,21 @@
 import React from 'react'
 import styled from 'styled-components';
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
         <MainContainer>
             <DetailContainer>
                 <BioContainer>
-                    <ImageContainer>
+                    <ImageContainer >
                         <ProfilPicture
-                            src="https://avatars1.githubusercontent.com/u/58623790?s=460&u=72e54bfd5307d90260d2a33dd34d8be68c3c8b7a&v=4"
-                            alt="new"
+                            src={user.avatar_url}
                         />
                     </ImageContainer>
                     <TextContainer>
-                        <UserName>Khazar Guluzade</UserName>
+                        <UserName 
+                            {user.login}
+                        />
                         <UserInfoContainer>
                             <ul>
                                 <li>Sirket: Edakik </li>
@@ -23,6 +24,7 @@ export default function Home() {
                             </ul>
                         </UserInfoContainer>
                         <ButtonGroupContainer>
+                                <Link to="/FollowerModal">Takipci sayisi</Link>
                             <FollowButton>Takipci Sayisi: 12 </FollowButton>
                             <FollowButton>Takip Edilen Sayisi: 12 </FollowButton>
                         </ButtonGroupContainer>
@@ -30,7 +32,14 @@ export default function Home() {
                 </BioContainer>
             </DetailContainer>
             <RepoContainer>
-                <p>dasdasdasdasdasd</p>
+                <ListingContainer>
+                    <ListUl>
+                        <ListLi>sdasd</ListLi>
+                        <ListLi>sdasd</ListLi>
+                        <ListLi>sdasd</ListLi>
+                        <ListLi>sdasd</ListLi>
+                    </ListUl>
+                </ListingContainer>
             </RepoContainer>
         </MainContainer>
     )
@@ -44,7 +53,6 @@ justify-content: flex-start;
 align-items: flex-start;
 flex: 1;
 flex-direction: column;
-
 `;
 
 
@@ -66,7 +74,6 @@ border: 1px solid #dedede;
 justify-content: center;
 align-items: center;
 display: flex;
-
 `;
 
 const ProfilPicture = styled.img`
@@ -116,4 +123,21 @@ display: flex;
 flex-direction: row;
 margin-left: 24px;
 justify-content: space-between;
+`;
+
+const ListingContainer = styled.div`
+border: 1px solid black;
+width: 100%;
+`;
+
+const ListUl = styled.ul`
+display: flex;
+padding: 0 10px;
+flex-direction: row;
+flex-wrap: wrap;
+`;
+
+const ListLi = styled.li`
+display: flex;
+width: 25%;
 `;

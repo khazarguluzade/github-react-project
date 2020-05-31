@@ -1,26 +1,50 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { getSearch } from '../redux/actions/searchActions'
+import { useDispatch, useSelector } from 'react-redux';
 
+
+// memo eklenecek
 export default function Home() {
+    const dispatch = useDispatch();
+    const searchSelector = useSelector(state => state.search);
+
+    console.log(searchSelector);
+
+    const searchUser = () => {
+        dispatch(getSearch());
+    }
     return (
         <MainContainer>
             <SearchContainer>
                 <h1> Github Kullanıcısı Ara</h1>
+                {
+                    searchSelector.loading &&
+                    <h1>BEKLE LA GETİRİYORUZ</h1>
+                }
                 <InputContainer>
                     <input placeholder='Kullanıcı adı girin...' />
-                    <SearchButton>Ara</SearchButton>
+                    <SearchButton onClick={searchUser}>Ara</SearchButton>
                 </InputContainer>
             </SearchContainer>
             <ListingContainer>
                 <ListUl>
-                    <ListLi>
+                    {
+                        searchSelector.users.length > 0 &&searchSelector.users.map((user) => (
+                            <ListLi key={user.id}>
+                                <Avatar src={user.avatar_url} />
+                                <Link to="/UserDetail">{user.login}</Link>
+                            </ListLi>
+                        ))
+                    }
+                    {/* <ListLi>
                         <Link to="/UserDetail">KULLANUICI ADI</Link>
                     </ListLi>
                     <ListLi>sdasd</ListLi>
                     <ListLi>sdasd</ListLi>
                     <ListLi>sdasd</ListLi>
-                    <ListLi>sdasd</ListLi>
+                    <ListLi>sdasd</ListLi> */}
                 </ListUl>
             </ListingContainer>
         </MainContainer>
@@ -35,9 +59,7 @@ justify-content: flex-start;
 align-items: flex-start;
 flex: 1;
 flex-direction: column;
-
 `;
-
 
 const SearchContainer = styled.div`
 display: flex;
@@ -74,3 +96,10 @@ const ListLi = styled.li`
 display: flex;
 width: 25%;
 `;
+
+const Avatar = styled.img`
+    width:100px;
+    height:100px;
+    border-radius:50px;
+`;
+
