@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { getSearch } from '../redux/actions/searchActions'
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Home() {
     const dispatch = useDispatch();
     const searchSelector = useSelector(state => state.search);
+
 
     console.log(searchSelector);
 
@@ -25,26 +26,19 @@ export default function Home() {
                 }
                 <InputContainer>
                     <input placeholder='Kullanıcı adı girin...' />
-                    <SearchButton onClick={searchUser}>Ara</SearchButton>
+                    <SearchButton <input onChange={(e) => setSearchTerm(e)} type="text"/>Ara</SearchButton>
                 </InputContainer>
             </SearchContainer>
             <ListingContainer>
                 <ListUl>
                     {
-                        searchSelector.users.length > 0 &&searchSelector.users.map((user) => (
+                        searchSelector.users.length > 0 && searchSelector.users.map((user) => (
                             <ListLi key={user.id}>
                                 <Avatar src={user.avatar_url} />
-                                <Link to="/UserDetail">{user.login}</Link>
+                                <Link to={`/UserDetail/${user.login}`}>{user.login}</Link>
                             </ListLi>
                         ))
                     }
-                    {/* <ListLi>
-                        <Link to="/UserDetail">KULLANUICI ADI</Link>
-                    </ListLi>
-                    <ListLi>sdasd</ListLi>
-                    <ListLi>sdasd</ListLi>
-                    <ListLi>sdasd</ListLi>
-                    <ListLi>sdasd</ListLi> */}
                 </ListUl>
             </ListingContainer>
         </MainContainer>
@@ -66,8 +60,8 @@ display: flex;
 border: 1px solid black;
 margin-bottom: 10px;
 flex-direction: column;
-justify-content: center;
-align-items: center;
+justify-content: flex-start;
+align-items: flex-start;
 width: 100%;
 `;
 
@@ -81,7 +75,7 @@ margin-bottom: 5px;
 `;
 
 const ListingContainer = styled.div`
-border: 5px solid black;
+border: 1px solid black;
 width: 100%;
 `;
 

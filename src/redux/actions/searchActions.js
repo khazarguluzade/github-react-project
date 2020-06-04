@@ -25,7 +25,7 @@ export const loadingSearching = (dispatch) => {
 export const getSearch = (userName) => {
     return dispatch => {
         loadingSearching(dispatch);
-        return axios.get('https://api.github.com/search/users?q=alperen').then((response) => {
+        return axios.get('https://api.github.com/search/users?q=hazar').then((response) => {
             successSearching(dispatch, response.data.items);
             console.log(response);
         }).catch(error => {

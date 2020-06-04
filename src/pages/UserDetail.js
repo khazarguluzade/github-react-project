@@ -1,45 +1,55 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getUserDetail } from '../redux/actions/userActions'
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Home() {
+export default function UserDetail() {
+    const { name } = useParams();
+    const dispatch = useDispatch();
+    const userSelector = useSelector(state => state.userDetail)
+    console.log(userSelector);
+    useEffect(() => {
+        dispatch(getUserDetail(name));
+    }, [dispatch, name])
     return (
         <MainContainer>
-            <DetailContainer>
-                <BioContainer>
-                    <ImageContainer >
-                        <ProfilPicture
-                            src={user.avatar_url}
-                        />
-                    </ImageContainer>
-                    <TextContainer>
-                        <UserName 
-                            {user.login}
-                        />
-                        <UserInfoContainer>
-                            <ul>
-                                <li>Sirket: Edakik </li>
-                                <li>Bio: fsdfs </li>
-                                <li>Tarih: 12.05.2019 </li>
-                            </ul>
-                        </UserInfoContainer>
-                        <ButtonGroupContainer>
-                                <Link to="/FollowerModal">Takipci sayisi</Link>
-                            <FollowButton>Takipci Sayisi: 12 </FollowButton>
-                            <FollowButton>Takip Edilen Sayisi: 12 </FollowButton>
-                        </ButtonGroupContainer>
-                    </TextContainer>
-                </BioContainer>
-            </DetailContainer>
+            {
+                userSelector.userDetail && <DetailContainer>
+                    <BioContainer>
+                        <ImageContainer >
+                            <ProfilPicture
+                                src={userSelector.userDetail.avatar_url}
+                            />
+                        </ImageContainer>
+                        <TextContainer>
+                            <UserName>{userSelector.userDetail.login} </UserName>
+                            <UserInfoContainer>
+                                <ul>
+                                    <li>Sirket: Edakik </li>
+                                    <li>Bio: fsdfs </li>
+                                    <li>Tarih: 12.05.2019 </li>
+                                </ul>
+                            </UserInfoContainer>
+                            <ButtonGroupContainer>
+                                <FollowButton>Takipci Sayisi: 12 </FollowButton>
+                                <FollowButton>Takip Edilen Sayisi: 12 </FollowButton>
+                            </ButtonGroupContainer>
+                        </TextContainer>
+                    </BioContainer>
+                </DetailContainer>
+            }
+
             <RepoContainer>
-                <ListingContainer>
+                {/* <ListingContainer>
                     <ListUl>
                         <ListLi>sdasd</ListLi>
                         <ListLi>sdasd</ListLi>
                         <ListLi>sdasd</ListLi>
                         <ListLi>sdasd</ListLi>
                     </ListUl>
-                </ListingContainer>
+                </ListingContainer> */}
             </RepoContainer>
         </MainContainer>
     )

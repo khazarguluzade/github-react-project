@@ -1,26 +1,27 @@
-import { LOADING_SEARCHING, SUCCESS_SEARCHING, ERROR_SEARCHING } from '../actions/actionTypes';
+import { LOADING_USERDETAIL, SUCCESS_USERDETAIL, ERROR_USERDETAIL } from '../actions/actionTypes';
+
 
 const INITIAL_STATE = {
-    users: [],
+    userDetail: {},
     error: null,
     loading: false,
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case SUCCESS_SEARCHING:
+        case SUCCESS_USERDETAIL:
             return {
                 ...state,
-                users: action.payload,
+                userDetail: action.payload,
                 loading: false
             }
-        case ERROR_SEARCHING:
+        case ERROR_USERDETAIL:
             return {
                 ...state,
                 error: action.payload,
                 loading: false
             }
-        case LOADING_SEARCHING:
+        case LOADING_USERDETAIL:
             return {
                 ...state,
                 loading: true
